@@ -16,6 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Copy requirements to backend directory
+        run: cp requirements.txt backend/
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -40,6 +43,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Copy package files to frontend directory
+        run: |
+          cp package.json frontend/
+          [ -f package-lock.json ] && cp package-lock.json frontend/ || true
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
