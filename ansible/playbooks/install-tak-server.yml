@@ -1,0 +1,80 @@
+---
+# TAK Server Installation Playbook
+- name: Install and Configure TAK Server
+  hosts: tak_servers
+  become: yes
+  vars:
+    tak_server_version: "latest"
+    tak_port: 8089
+    
+  tasks:
+    - name: Update system packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+      when: ansible_os_family == "Debian"
+    
+    - name: Install required dependencies
+      apt:
+        name:
+          - openjdk-11-jdk
+          - postgresql
+          - postgresql-contrib
+          - python3-pip
+          - nginx
+        state: present
+      when: ansible_os_family == "Debian"
+    
+    - name: Create TAK directory
+      file:
+        path: /opt/tak
+        state: directory
+        mode: '0755'
+    
+    - name: Download TAK Server (placeholder)
+      debug:
+        msg: "Would download TAK Server version {{ tak_server_version }}"
+    
+    - name: Configure TAK Server
+      template:
+        src: tak-server-config.xml.j2
+        dest: /opt/tak/CoreConfig.xml
+        mode: '0644'
+      notify: restart tak
+    
+    - name: Create TAK systemd service
+      copy:
+        dest: /etc/systemd/system/tak.service
+        content: |
+          [Unit]
+          Description=TAK Server
+          After=network.target postgresql.service
+          
+          [Service]
+          Type=forking
+          User=tak
+          WorkingDirectory=/opt/tak
+          ExecStart=/opt/tak/tak.sh start
+          ExecStop=/opt/tak/tak.sh stop
+          Restart=on-failure
+          
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+      notify: reload systemd
+    
+    - name: Enable TAK service
+      systemd:
+        name: tak
+        enabled: yes
+        state: started
+  
+  handlers:
+    - name: restart tak
+      systemd:
+        name: tak
+        state: restarted
+    
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes

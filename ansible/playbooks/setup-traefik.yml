@@ -1,0 +1,102 @@
+---
+# Traefik Reverse Proxy Setup
+- name: Install and Configure Traefik
+  hosts: all
+  become: yes
+  vars:
+    traefik_version: "v2.10"
+    email: "admin@example.com"
+    domain: "tak.example.com"
+  
+  tasks:
+    - name: Create Traefik directory
+      file:
+        path: /opt/traefik
+        state: directory
+        mode: '0755'
+    
+    - name: Create Traefik configuration
+      copy:
+        dest: /opt/traefik/traefik.yml
+        content: |
+          api:
+            dashboard: true
+            insecure: false
+          
+          entryPoints:
+            web:
+              address: ":80"
+              http:
+                redirections:
+                  entryPoint:
+                    to: websecure
+                    scheme: https
+            websecure:
+              address: ":443"
+          
+          certificatesResolvers:
+            letsencrypt:
+              acme:
+                email: {{ email }}
+                storage: /opt/traefik/acme.json
+                httpChallenge:
+                  entryPoint: web
+          
+          providers:
+            file:
+              filename: /opt/traefik/dynamic.yml
+        mode: '0644'
+    
+    - name: Create dynamic configuration
+      copy:
+        dest: /opt/traefik/dynamic.yml
+        content: |
+          http:
+            routers:
+              tak:
+                rule: "Host(`{{ domain }}`)"
+                service: tak-service
+                tls:
+                  certResolver: letsencrypt
+            
+            services:
+              tak-service:
+                loadBalancer:
+                  servers:
+                    - url: "http://localhost:8089"
+        mode: '0644'
+    
+    - name: Create acme.json file
+      file:
+        path: /opt/traefik/acme.json
+        state: touch
+        mode: '0600'
+    
+    - name: Create Traefik systemd service
+      copy:
+        dest: /etc/systemd/system/traefik.service
+        content: |
+          [Unit]
+          Description=Traefik Reverse Proxy
+          After=network.target
+          
+          [Service]
+          Type=simple
+          ExecStart=/usr/local/bin/traefik --configFile=/opt/traefik/traefik.yml
+          Restart=on-failure
+          
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+      notify: reload systemd
+    
+    - name: Enable Traefik service
+      systemd:
+        name: traefik
+        enabled: yes
+        state: started
+  
+  handlers:
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes

@@ -1,0 +1,101 @@
+"""
+File Converter API endpoints (KML/KMZ conversion)
+"""
+from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi.responses import FileResponse
+import zipfile
+import os
+from datetime import datetime
+
+router = APIRouter()
+
+@router.post("/kml-to-kmz")
+async def convert_kml_to_kmz(file: UploadFile = File(...)):
+    """
+    Convert KML file to KMZ (zipped KML)
+    """
+    if not file.filename.endswith('.kml'):
+        raise HTTPException(status_code=400, detail="File must be a KML file")
+    
+    # Save uploaded KML
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    kml_path = f"data/uploads/{timestamp}_{file.filename}"
+    
+    with open(kml_path, "wb") as f:
+        content = await file.read()
+        f.write(content)
+    
+    # Create KMZ (ZIP with KML inside)
+    kmz_filename = file.filename.replace('.kml', '.kmz')
+    kmz_path = f"data/uploads/{timestamp}_{kmz_filename}"
+    
+    with zipfile.ZipFile(kmz_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        zipf.write(kml_path, arcname='doc.kml')
+    
+    # Clean up original KML
+    os.remove(kml_path)
+    
+    return {
+        "original_file": file.filename,
+        "converted_file": kmz_filename,
+        "download_path": kmz_path
+    }
+
+@router.post("/kmz-to-kml")
+async def convert_kmz_to_kml(file: UploadFile = File(...)):
+    """
+    Convert KMZ file to KML (extract from zip)
+    """
+    if not file.filename.endswith('.kmz'):
+        raise HTTPException(status_code=400, detail="File must be a KMZ file")
+    
+    # Save uploaded KMZ
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    kmz_path = f"data/uploads/{timestamp}_{file.filename}"
+    
+    with open(kmz_path, "wb") as f:
+        content = await file.read()
+        f.write(content)
+    
+    # Extract KML from KMZ
+    kml_filename = file.filename.replace('.kmz', '.kml')
+    kml_path = f"data/uploads/{timestamp}_{kml_filename}"
+    
+    try:
+        with zipfile.ZipFile(kmz_path, 'r') as zipf:
+            # Look for KML file in the archive
+            kml_files = [name for name in zipf.namelist() if name.endswith('.kml')]
+            if not kml_files:
+                raise HTTPException(status_code=400, detail="No KML file found in KMZ")
+            
+            # Extract first KML file
+            kml_content = zipf.read(kml_files[0])
+            with open(kml_path, 'wb') as f:
+                f.write(kml_content)
+    except zipfile.BadZipFile:
+        raise HTTPException(status_code=400, detail="Invalid KMZ file")
+    finally:
+        # Clean up KMZ
+        os.remove(kmz_path)
+    
+    return {
+        "original_file": file.filename,
+        "converted_file": kml_filename,
+        "download_path": kml_path
+    }
+
+@router.get("/download/{file_path}")
+async def download_converted_file(file_path: str):
+    """
+    Download converted file
+    """
+    full_path = f"data/uploads/{file_path}"
+    
+    if not os.path.exists(full_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    return FileResponse(
+        full_path,
+        media_type='application/octet-stream',
+        filename=file_path
+    )
