@@ -41,7 +41,7 @@ async def create_poi(poi: POIRequest, db: AsyncSession = Depends(get_db)):
         category=poi.category,
         latitude=poi.latitude,
         longitude=poi.longitude,
-        metadata=poi.metadata
+        poi_metadata=poi.metadata
     )
     
     db.add(new_poi)
@@ -55,7 +55,7 @@ async def create_poi(poi: POIRequest, db: AsyncSession = Depends(get_db)):
         category=new_poi.category or "general",
         latitude=new_poi.latitude or "",
         longitude=new_poi.longitude or "",
-        metadata=new_poi.metadata or {},
+        metadata=new_poi.poi_metadata or {},
         created_at=new_poi.created_at.isoformat(),
         updated_at=new_poi.updated_at.isoformat() if new_poi.updated_at else None
     )
@@ -83,7 +83,7 @@ async def list_pois(
             category=p.category or "general",
             latitude=p.latitude or "",
             longitude=p.longitude or "",
-            metadata=p.metadata or {},
+            metadata=p.poi_metadata or {},
             created_at=p.created_at.isoformat(),
             updated_at=p.updated_at.isoformat() if p.updated_at else None
         )
@@ -108,7 +108,7 @@ async def get_poi(poi_id: int, db: AsyncSession = Depends(get_db)):
         category=poi.category or "general",
         latitude=poi.latitude or "",
         longitude=poi.longitude or "",
-        metadata=poi.metadata or {},
+        metadata=poi.poi_metadata or {},
         created_at=poi.created_at.isoformat(),
         updated_at=poi.updated_at.isoformat() if poi.updated_at else None
     )
@@ -133,7 +133,7 @@ async def update_poi(
     poi.category = poi_update.category
     poi.latitude = poi_update.latitude
     poi.longitude = poi_update.longitude
-    poi.metadata = poi_update.metadata
+    poi.poi_metadata = poi_update.metadata
     
     await db.commit()
     await db.refresh(poi)
@@ -145,7 +145,7 @@ async def update_poi(
         category=poi.category or "general",
         latitude=poi.latitude or "",
         longitude=poi.longitude or "",
-        metadata=poi.metadata or {},
+        metadata=poi.poi_metadata or {},
         created_at=poi.created_at.isoformat(),
         updated_at=poi.updated_at.isoformat() if poi.updated_at else None
     )

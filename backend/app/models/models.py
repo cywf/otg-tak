@@ -26,7 +26,7 @@ class POI(Base):
     category = Column(String)
     latitude = Column(String)
     longitude = Column(String)
-    metadata = Column(JSON)
+    poi_metadata = Column(JSON)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
