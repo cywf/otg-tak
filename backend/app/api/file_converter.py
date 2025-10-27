@@ -5,6 +5,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import FileResponse
 import zipfile
 import os
+import uuid
 from datetime import datetime
 
 router = APIRouter()
@@ -17,9 +18,13 @@ async def convert_kml_to_kmz(file: UploadFile = File(...)):
     if not file.filename.endswith('.kml'):
         raise HTTPException(status_code=400, detail="File must be a KML file")
     
-    # Save uploaded KML
+    # Create upload directory if it doesn't exist
+    os.makedirs("data/uploads", exist_ok=True)
+    
+    # Save uploaded KML with sanitized filename
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    kml_path = f"data/uploads/{timestamp}_{file.filename}"
+    safe_name = f"{timestamp}_{uuid.uuid4()}_{os.path.basename(file.filename)}"
+    kml_path = os.path.join("data/uploads", safe_name)
     
     with open(kml_path, "wb") as f:
         content = await file.read()
@@ -27,7 +32,8 @@ async def convert_kml_to_kmz(file: UploadFile = File(...)):
     
     # Create KMZ (ZIP with KML inside)
     kmz_filename = file.filename.replace('.kml', '.kmz')
-    kmz_path = f"data/uploads/{timestamp}_{kmz_filename}"
+    safe_kmz_name = f"{timestamp}_{uuid.uuid4()}_{os.path.basename(kmz_filename)}"
+    kmz_path = os.path.join("data/uploads", safe_kmz_name)
     
     with zipfile.ZipFile(kmz_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         zipf.write(kml_path, arcname='doc.kml')
@@ -49,9 +55,13 @@ async def convert_kmz_to_kml(file: UploadFile = File(...)):
     if not file.filename.endswith('.kmz'):
         raise HTTPException(status_code=400, detail="File must be a KMZ file")
     
-    # Save uploaded KMZ
+    # Create upload directory if it doesn't exist
+    os.makedirs("data/uploads", exist_ok=True)
+    
+    # Save uploaded KMZ with sanitized filename
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    kmz_path = f"data/uploads/{timestamp}_{file.filename}"
+    safe_name = f"{timestamp}_{uuid.uuid4()}_{os.path.basename(file.filename)}"
+    kmz_path = os.path.join("data/uploads", safe_name)
     
     with open(kmz_path, "wb") as f:
         content = await file.read()
@@ -59,7 +69,8 @@ async def convert_kmz_to_kml(file: UploadFile = File(...)):
     
     # Extract KML from KMZ
     kml_filename = file.filename.replace('.kmz', '.kml')
-    kml_path = f"data/uploads/{timestamp}_{kml_filename}"
+    safe_kml_name = f"{timestamp}_{uuid.uuid4()}_{os.path.basename(kml_filename)}"
+    kml_path = os.path.join("data/uploads", safe_kml_name)
     
     try:
         with zipfile.ZipFile(kmz_path, 'r') as zipf:

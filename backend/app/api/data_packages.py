@@ -7,6 +7,7 @@ from typing import List, Optional
 import zipfile
 import os
 import json
+import uuid
 from datetime import datetime
 
 router = APIRouter()
@@ -61,7 +62,12 @@ async def upload_package_file(file: UploadFile = File(...)):
     """
     Upload a file to be included in data packages
     """
-    file_path = f"data/uploads/{file.filename}"
+    # Create upload directory if it doesn't exist
+    os.makedirs("data/uploads", exist_ok=True)
+    
+    # Sanitize filename to prevent path traversal
+    safe_name = f"{uuid.uuid4()}_{os.path.basename(file.filename)}"
+    file_path = os.path.join("data/uploads", safe_name)
     
     with open(file_path, "wb") as f:
         content = await file.read()
