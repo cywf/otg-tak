@@ -17,7 +17,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Copy requirements to backend directory
-        run: cp requirements.txt backend/
+        run: |
+          if [ ! -f requirements.txt ]; then
+            echo "Error: requirements.txt not found in root directory"
+            exit 1
+          fi
+          cp requirements.txt backend/
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -46,8 +51,17 @@ jobs:
 
       - name: Copy package files to frontend directory
         run: |
+          if [ ! -f package.json ]; then
+            echo "Error: package.json not found in root directory"
+            exit 1
+          fi
           cp package.json frontend/
-          [ -f package-lock.json ] && cp package-lock.json frontend/ || true
+          if [ -f package-lock.json ]; then
+            cp package-lock.json frontend/
+            echo "Copied package-lock.json"
+          else
+            echo "No package-lock.json found, skipping..."
+          fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
