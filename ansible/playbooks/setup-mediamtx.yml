@@ -1,0 +1,73 @@
+---
+# MediaMTX ISR Feed Server Setup
+- name: Install and Configure MediaMTX
+  hosts: all
+  become: yes
+  
+  tasks:
+    - name: Create MediaMTX directory
+      file:
+        path: /opt/mediamtx
+        state: directory
+        mode: '0755'
+    
+    - name: Download MediaMTX (placeholder)
+      debug:
+        msg: "Would download MediaMTX latest release"
+    
+    - name: Create MediaMTX configuration
+      copy:
+        dest: /opt/mediamtx/mediamtx.yml
+        content: |
+          # MediaMTX Configuration
+          logLevel: info
+          logDestinations: [stdout]
+          
+          # RTSP server
+          rtspDisable: false
+          protocols: [tcp, udp]
+          rtspAddress: :8554
+          
+          # HLS server
+          hlsDisable: false
+          hlsAddress: :8888
+          
+          # WebRTC server
+          webrtcDisable: false
+          webrtcAddress: :8889
+          
+          # Paths configuration
+          paths:
+            all:
+              source: publisher
+        mode: '0644'
+    
+    - name: Create MediaMTX systemd service
+      copy:
+        dest: /etc/systemd/system/mediamtx.service
+        content: |
+          [Unit]
+          Description=MediaMTX ISR Feed Server
+          After=network.target
+          
+          [Service]
+          Type=simple
+          WorkingDirectory=/opt/mediamtx
+          ExecStart=/opt/mediamtx/mediamtx /opt/mediamtx/mediamtx.yml
+          Restart=on-failure
+          
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+      notify: reload systemd
+    
+    - name: Enable MediaMTX service
+      systemd:
+        name: mediamtx
+        enabled: yes
+        state: started
+  
+  handlers:
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes
