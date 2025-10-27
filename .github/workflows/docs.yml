@@ -1,0 +1,112 @@
+name: Docs
+
+on:
+  push:
+    paths:
+      - '**.py'
+      - '**.js'
+      - '**.jsx'
+      - '**.ts'
+      - '**.tsx'
+      - 'README.md'
+      - '.github/workflows/**'
+    branches:
+      - main
+      - dev
+
+permissions:
+  contents: write
+
+jobs:
+  generate-docs:
+    name: Generate Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate repository structure
+        run: |
+          cat > REPO_STRUCTURE.md << 'EOF'
+          # Repository Structure
+
+          This file is auto-generated and shows the structure of the OTG-TAK repository.
+
+          ## Directory Tree
+
+          ```
+          EOF
+          
+          # Generate tree with depth 2
+          tree -L 2 -I 'node_modules|__pycache__|*.pyc|.git|dist|build|coverage' >> REPO_STRUCTURE.md || {
+            echo "tree command not available, using find instead"
+            find . -maxdepth 2 -type d -not -path '*/\.*' -not -path '*/node_modules*' -not -path '*/__pycache__*' | sort | sed 's|^\./||' | awk '{print "  " $0}' >> REPO_STRUCTURE.md
+          }
+          
+          cat >> REPO_STRUCTURE.md << 'EOF'
+          ```
+
+          ## Mermaid Diagram
+
+          ```mermaid
+          graph TD
+            A[otg-tak] --> B[backend]
+            A --> C[frontend]
+            A --> D[ansible]
+            A --> E[terraform]
+            A --> F[scripts]
+            
+            B --> B1[app]
+            B --> B2[Dockerfile]
+            B --> B3[main.py]
+            
+            B1 --> B1A[api]
+            B1 --> B1B[core]
+            B1 --> B1C[models]
+            B1 --> B1D[services]
+            B1 --> B1E[utils]
+            
+            C --> C1[src]
+            C --> C2[Dockerfile]
+            C --> C3[vite.config.js]
+            
+            C1 --> C1A[components]
+            C1 --> C1B[pages]
+            C1 --> C1C[services]
+            
+            D --> D1[playbooks]
+            D1 --> D1A[install-tak-server.yml]
+            D1 --> D1B[security-hardening.yml]
+            D1 --> D1C[setup-networking.yml]
+            
+            E --> E1[modules]
+            E1 --> E1A[tak-server]
+            E1 --> E1B[networking]
+            E1 --> E1C[security]
+          ```
+
+          ---
+          *Last updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC')*
+          EOF
+
+      - name: Update README with structure link
+        run: |
+          # Check if the auto-generated structure section exists
+          if ! grep -q "🧬 Repository Structure (Auto-Generated)" README.md; then
+            cat >> README.md << 'EOF'
+
+          ## 🧬 Repository Structure (Auto-Generated)
+
+          View the [Repository Structure](./REPO_STRUCTURE.md) for a detailed overview of the project organization.
+          EOF
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add REPO_STRUCTURE.md README.md
+          git diff --staged --quiet || git commit -m "docs: Update auto-generated repository structure [skip ci]"
+          git push

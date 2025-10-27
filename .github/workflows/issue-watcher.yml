@@ -1,0 +1,57 @@
+name: Issue Watcher
+
+on:
+  workflow_run:
+    workflows: ["Build", "Test"]
+    types:
+      - completed
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create-issue-on-failure:
+    name: Create Issue on Workflow Failure
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create issue body file
+        run: |
+          cat > /tmp/issue-body.md << 'EOF'
+          ## ⚠️ Workflow Failed: ${{ github.event.workflow_run.name }}
+
+          **Workflow Run:** [${{ github.event.workflow_run.id }}](${{ github.event.workflow_run.html_url }})
+          **Branch:** ${{ github.event.workflow_run.head_branch }}
+          **Commit:** ${{ github.event.workflow_run.head_sha }}
+          **Triggered by:** @${{ github.event.workflow_run.triggering_actor.login }}
+
+          ### Details
+          - **Event:** ${{ github.event.workflow_run.event }}
+          - **Status:** ${{ github.event.workflow_run.conclusion }}
+          - **Run started:** ${{ github.event.workflow_run.created_at }}
+
+          ### Actions Required
+          - [ ] Review the workflow logs
+          - [ ] Identify the root cause
+          - [ ] Fix the issue
+          - [ ] Re-run the workflow
+
+          ### Logs
+          View the full logs here: ${{ github.event.workflow_run.html_url }}
+
+          ---
+          *This issue was automatically created by the Issue Watcher workflow.*
+          EOF
+
+      - name: Create issue from file
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "⚠️ Workflow Failed: ${{ github.event.workflow_run.name }}"
+          content-filepath: /tmp/issue-body.md
+          labels: |
+            bug
+            automation
