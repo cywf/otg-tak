@@ -2,6 +2,15 @@
 
 A comprehensive mobile solution for automating the deployment and setup of TAK (Team Awareness Kit) Servers with security hardening, networking integration, and tactical operational tools.
 
+## 🧭 Repository Status
+
+| Workflow | Status | Description |
+|----------|--------|-------------|
+| **Build** | ![Build Status](https://github.com/cywf/otg-tak/actions/workflows/build.yml/badge.svg) | Packages backend/frontend into Docker images |
+| **Test** | ![Test Status](https://github.com/cywf/otg-tak/actions/workflows/test.yml/badge.svg) | Runs automated backend + frontend tests |
+| **Issue Watcher** | ![Issue Watcher Status](https://github.com/cywf/otg-tak/actions/workflows/issue-watcher.yml/badge.svg) | Opens issue when a workflow fails |
+| **Docs** | ![Docs Status](https://github.com/cywf/otg-tak/actions/workflows/docs.yml/badge.svg) | Auto-generates repo diagram and README |
+
 ## Features
 
 ### 🚀 Automated Deployment
@@ -244,6 +253,17 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 For issues and questions:
 - Open an issue on GitHub
 - Contact: support@otg-tak.example.com
+
+## 🧩 Workflow Overview
+
+```mermaid
+graph TD
+  A[Push Code] --> B[Build Workflow]
+  B --> C[Test Workflow]
+  C -->|Fail| D[Auto-Issue Triggered]
+  C -->|Pass| E[Docker Image Published]
+  E --> F[README & Mermaid Updated]
+```
 
 ## Acknowledgments
 
