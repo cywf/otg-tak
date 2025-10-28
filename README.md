@@ -274,3 +274,7 @@ graph TD
 ---
 
 **Note**: This is a development project. Ensure proper security measures are in place before deploying in production environments.
+
+## 🧬 Repository Structure (Auto-Generated)
+
+View the [Repository Structure](./REPO_STRUCTURE.md) for a detailed overview of the project organization.
