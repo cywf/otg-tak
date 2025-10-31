@@ -71,11 +71,12 @@ async function walk(dir, depth = 0) {
   let md = "";
   for (const e of entries) {
     if (e.name === ".DS_Store" || IGNORES.has(e.name)) continue;
-    if (totalEntries++ > MAX_ENTRIES) break;
 
     const full = path.join(dir, e.name);
 
     if (e.isDirectory()) {
+      if (totalEntries > MAX_ENTRIES) break;
+      totalEntries++;
       md += `${"  ".repeat(depth)}- **${e.name}/**\n`;
       md += await walk(full, depth + 1);
     } else {
@@ -83,6 +84,8 @@ async function walk(dir, depth = 0) {
       if (SKIP_EXTS.has(ext)) continue;
       const st = await fs.stat(full).catch(() => null);
       if (!st || st.size > MAX_FILE_SIZE) continue;
+      if (totalEntries > MAX_ENTRIES) break;
+      totalEntries++;
       md += `${"  ".repeat(depth)}- ${e.name}\n`;
       extCounts.set(langOf(e.name), (extCounts.get(langOf(e.name)) || 0) + 1);
     }
