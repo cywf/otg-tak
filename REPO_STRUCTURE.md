@@ -32,13 +32,14 @@ This file is auto-generated and shows the structure of the OTG-TAK repository.
 ├── quick-start.sh
 ├── requirements.txt
 ├── scripts
+│   ├── generate-markmap.mjs
 │   └── health-check.sh
 └── terraform
     ├── main.tf
     ├── modules
     └── variables.tf
 
-10 directories, 22 files
+10 directories, 23 files
 ```
 
 ## Mermaid Diagram
