@@ -82,3 +82,6 @@ terraform.tfstate.backup
 tmp/
 temp/
 *.tmp
+
+# Generated markmap files
+markmap/
