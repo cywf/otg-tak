@@ -1,0 +1,185 @@
+flowchart TB
+classDef dir fill:#eef,stroke:#99c,stroke-width:1px;
+d__["otg-tak/"]:::dir
+f__env_example[".env.example"]
+f__gitignore[".gitignore"]
+f__markmapignore[".markmapignore"]
+f__mermaidignore[".mermaidignore"]
+d_ansible["ansible/"]:::dir
+f_ansible_ansible_cfg["ansible.cfg"]
+f_ansible_inventory["inventory"]
+d_ansible_playbooks["playbooks/"]:::dir
+f_ansible_playbooks_install_tak_server_yml["install-tak-server.yml"]
+f_ansible_playbooks_security_hardening_yml["security-hardening.yml"]
+f_ansible_playbooks_setup_mediamtx_yml["setup-mediamtx.yml"]
+f_ansible_playbooks_setup_networking_yml["setup-networking.yml"]
+f_ansible_playbooks_setup_traefik_yml["setup-traefik.yml"]
+d_backend["backend/"]:::dir
+d_backend_app["app/"]:::dir
+f_backend_app___init___py["__init__.py"]
+d_backend_app_api["api/"]:::dir
+f_backend_app_api___init___py["__init__.py"]
+f_backend_app_api_data_packages_py["data_packages.py"]
+f_backend_app_api_deployment_py["deployment.py"]
+f_backend_app_api_file_converter_py["file_converter.py"]
+f_backend_app_api_notepad_py["notepad.py"]
+f_backend_app_api_poi_tracker_py["poi_tracker.py"]
+f_backend_app_api_qr_generator_py["qr_generator.py"]
+f_backend_app_api_routes_py["routes.py"]
+f_backend_app_api_sdr_py["sdr.py"]
+f_backend_app_api_server_status_py["server_status.py"]
+d_backend_app_core["core/"]:::dir
+f_backend_app_core___init___py["__init__.py"]
+f_backend_app_core_config_py["config.py"]
+f_backend_app_core_database_py["database.py"]
+d_backend_app_models["models/"]:::dir
+f_backend_app_models___init___py["__init__.py"]
+f_backend_app_models_models_py["models.py"]
+d_backend_app_services["services/"]:::dir
+f_backend_app_services___init___py["__init__.py"]
+f_backend_app_services_deployment_service_py["deployment_service.py"]
+d_backend_app_utils["utils/"]:::dir
+f_backend_app_utils___init___py["__init__.py"]
+f_backend_Dockerfile["Dockerfile"]
+f_backend_main_py["main.py"]
+f_CHANGELOG_md["CHANGELOG.md"]
+f_CONTRIBUTING_md["CONTRIBUTING.md"]
+f_docker_compose_yml["docker-compose.yml"]
+d_frontend["frontend/"]:::dir
+f_frontend_Dockerfile["Dockerfile"]
+f_frontend_index_html["index.html"]
+d_frontend_src["src/"]:::dir
+f_frontend_src_App_css["App.css"]
+f_frontend_src_App_jsx["App.jsx"]
+f_frontend_src_index_css["index.css"]
+f_frontend_src_main_jsx["main.jsx"]
+d_frontend_src_pages["pages/"]:::dir
+f_frontend_src_pages_Dashboard_jsx["Dashboard.jsx"]
+f_frontend_src_pages_DataPackages_jsx["DataPackages.jsx"]
+f_frontend_src_pages_Deployment_jsx["Deployment.jsx"]
+f_frontend_src_pages_FileConverter_jsx["FileConverter.jsx"]
+f_frontend_src_pages_Notepad_jsx["Notepad.jsx"]
+f_frontend_src_pages_POITracker_jsx["POITracker.jsx"]
+f_frontend_src_pages_QRGenerator_jsx["QRGenerator.jsx"]
+f_frontend_src_pages_RouteBuilder_jsx["RouteBuilder.jsx"]
+f_frontend_src_pages_SDRBuilder_jsx["SDRBuilder.jsx"]
+f_frontend_src_pages_ServerStatus_jsx["ServerStatus.jsx"]
+f_frontend_vite_config_js["vite.config.js"]
+f_INSTALL_md["INSTALL.md"]
+f_LICENSE["LICENSE"]
+f_Makefile["Makefile"]
+d_mermaid["mermaid/"]:::dir
+f_mermaid_bpmnish_mmd["bpmnish.mmd"]
+f_mermaid_ci_sequence_mmd["ci-sequence.mmd"]
+f_mermaid_er_mmd["er.mmd"]
+f_package_json["package.json"]
+f_PROJECT_SUMMARY_md["PROJECT_SUMMARY.md"]
+f_quick_start_sh["quick-start.sh"]
+f_README_md["README.md"]
+f_REPO_STRUCTURE_md["REPO_STRUCTURE.md"]
+f_requirements_txt["requirements.txt"]
+d_scripts["scripts/"]:::dir
+f_scripts_generate_markmap_mjs["generate-markmap.mjs"]
+f_scripts_generate_mermaid_mjs["generate-mermaid.mjs"]
+f_scripts_health_check_sh["health-check.sh"]
+d_terraform["terraform/"]:::dir
+f_terraform_main_tf["main.tf"]
+d_terraform_modules["modules/"]:::dir
+d_terraform_modules_networking["networking/"]:::dir
+f_terraform_modules_networking_main_tf["main.tf"]
+d_terraform_modules_security["security/"]:::dir
+f_terraform_modules_security_main_tf["main.tf"]
+d_terraform_modules_tak_server["tak-server/"]:::dir
+f_terraform_modules_tak_server_main_tf["main.tf"]
+f_terraform_variables_tf["variables.tf"]
+d__ --> f__env_example
+d__ --> f__gitignore
+d__ --> f__markmapignore
+d__ --> f__mermaidignore
+d__ --> d_ansible
+d_ansible --> f_ansible_ansible_cfg
+d_ansible --> f_ansible_inventory
+d_ansible --> d_ansible_playbooks
+d_ansible_playbooks --> f_ansible_playbooks_install_tak_server_yml
+d_ansible_playbooks --> f_ansible_playbooks_security_hardening_yml
+d_ansible_playbooks --> f_ansible_playbooks_setup_mediamtx_yml
+d_ansible_playbooks --> f_ansible_playbooks_setup_networking_yml
+d_ansible_playbooks --> f_ansible_playbooks_setup_traefik_yml
+d__ --> d_backend
+d_backend --> d_backend_app
+d_backend_app --> f_backend_app___init___py
+d_backend_app --> d_backend_app_api
+d_backend_app_api --> f_backend_app_api___init___py
+d_backend_app_api --> f_backend_app_api_data_packages_py
+d_backend_app_api --> f_backend_app_api_deployment_py
+d_backend_app_api --> f_backend_app_api_file_converter_py
+d_backend_app_api --> f_backend_app_api_notepad_py
+d_backend_app_api --> f_backend_app_api_poi_tracker_py
+d_backend_app_api --> f_backend_app_api_qr_generator_py
+d_backend_app_api --> f_backend_app_api_routes_py
+d_backend_app_api --> f_backend_app_api_sdr_py
+d_backend_app_api --> f_backend_app_api_server_status_py
+d_backend_app --> d_backend_app_core
+d_backend_app_core --> f_backend_app_core___init___py
+d_backend_app_core --> f_backend_app_core_config_py
+d_backend_app_core --> f_backend_app_core_database_py
+d_backend_app --> d_backend_app_models
+d_backend_app_models --> f_backend_app_models___init___py
+d_backend_app_models --> f_backend_app_models_models_py
+d_backend_app --> d_backend_app_services
+d_backend_app_services --> f_backend_app_services___init___py
+d_backend_app_services --> f_backend_app_services_deployment_service_py
+d_backend_app --> d_backend_app_utils
+d_backend_app_utils --> f_backend_app_utils___init___py
+d_backend --> f_backend_Dockerfile
+d_backend --> f_backend_main_py
+d__ --> f_CHANGELOG_md
+d__ --> f_CONTRIBUTING_md
+d__ --> f_docker_compose_yml
+d__ --> d_frontend
+d_frontend --> f_frontend_Dockerfile
+d_frontend --> f_frontend_index_html
+d_frontend --> d_frontend_src
+d_frontend_src --> f_frontend_src_App_css
+d_frontend_src --> f_frontend_src_App_jsx
+d_frontend_src --> f_frontend_src_index_css
+d_frontend_src --> f_frontend_src_main_jsx
+d_frontend_src --> d_frontend_src_pages
+d_frontend_src_pages --> f_frontend_src_pages_Dashboard_jsx
+d_frontend_src_pages --> f_frontend_src_pages_DataPackages_jsx
+d_frontend_src_pages --> f_frontend_src_pages_Deployment_jsx
+d_frontend_src_pages --> f_frontend_src_pages_FileConverter_jsx
+d_frontend_src_pages --> f_frontend_src_pages_Notepad_jsx
+d_frontend_src_pages --> f_frontend_src_pages_POITracker_jsx
+d_frontend_src_pages --> f_frontend_src_pages_QRGenerator_jsx
+d_frontend_src_pages --> f_frontend_src_pages_RouteBuilder_jsx
+d_frontend_src_pages --> f_frontend_src_pages_SDRBuilder_jsx
+d_frontend_src_pages --> f_frontend_src_pages_ServerStatus_jsx
+d_frontend --> f_frontend_vite_config_js
+d__ --> f_INSTALL_md
+d__ --> f_LICENSE
+d__ --> f_Makefile
+d__ --> d_mermaid
+d_mermaid --> f_mermaid_bpmnish_mmd
+d_mermaid --> f_mermaid_ci_sequence_mmd
+d_mermaid --> f_mermaid_er_mmd
+d__ --> f_package_json
+d__ --> f_PROJECT_SUMMARY_md
+d__ --> f_quick_start_sh
+d__ --> f_README_md
+d__ --> f_REPO_STRUCTURE_md
+d__ --> f_requirements_txt
+d__ --> d_scripts
+d_scripts --> f_scripts_generate_markmap_mjs
+d_scripts --> f_scripts_generate_mermaid_mjs
+d_scripts --> f_scripts_health_check_sh
+d__ --> d_terraform
+d_terraform --> f_terraform_main_tf
+d_terraform --> d_terraform_modules
+d_terraform_modules --> d_terraform_modules_networking
+d_terraform_modules_networking --> f_terraform_modules_networking_main_tf
+d_terraform_modules --> d_terraform_modules_security
+d_terraform_modules_security --> f_terraform_modules_security_main_tf
+d_terraform_modules --> d_terraform_modules_tak_server
+d_terraform_modules_tak_server --> f_terraform_modules_tak_server_main_tf
+d_terraform --> f_terraform_variables_tf

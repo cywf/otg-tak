@@ -1,0 +1,20 @@
+sequenceDiagram
+actor Dev
+participant GitHub
+participant Runner
+Dev->>GitHub: triggers "Build"
+GitHub->>Runner: dispatch
+loop Build
+end
+Dev->>GitHub: triggers "Docs"
+GitHub->>Runner: dispatch
+loop Docs
+end
+Dev->>GitHub: triggers "Issue Watcher"
+GitHub->>Runner: dispatch
+loop Issue Watcher
+end
+Dev->>GitHub: triggers "Codebase Mindmap"
+GitHub->>Runner: dispatch
+loop Codebase Mindmap
+end
