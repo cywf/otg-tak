@@ -278,3 +278,8 @@ graph TD
 ## 🧬 Repository Structure (Auto-Generated)
 
 View the [Repository Structure](./REPO_STRUCTURE.md) for a detailed overview of the project organization.
+
+## 🗺️ Live Codebase Mindmap
+
+Auto-generated on each push: **repo-map.html** (via GitHub Pages and CI artifact).
+When Pages is enabled, it will be served at: `https://cywf.github.io/otg-tak/repo-map.html`
