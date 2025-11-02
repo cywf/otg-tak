@@ -5,6 +5,7 @@ import { join } from 'path';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 const REPO_OWNER = 'cywf';
 const REPO_NAME = 'otg-tak';
+const MAX_ISSUES_PER_PAGE = 100;
 
 interface ProjectItem {
   title: string;
@@ -32,7 +33,7 @@ async function fetchProjects(): Promise<ProjectsData> {
   console.log('Fetching issues grouped by status labels...');
   
   const response = await fetch(
-    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues?state=open&per_page=100`,
+    `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues?state=open&per_page=${MAX_ISSUES_PER_PAGE}`,
     { headers }
   );
 

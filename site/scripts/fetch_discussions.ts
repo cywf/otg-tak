@@ -5,6 +5,7 @@ import { join } from 'path';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
 const REPO_OWNER = 'cywf';
 const REPO_NAME = 'otg-tak';
+const MAX_DISCUSSIONS = 25;
 
 interface Discussion {
   title: string;
@@ -26,9 +27,9 @@ async function fetchDiscussions(): Promise<Discussion[]> {
   }
 
   const query = `
-    query($owner: String!, $name: String!) {
+    query($owner: String!, $name: String!, $maxDiscussions: Int!) {
       repository(owner: $owner, name: $name) {
-        discussions(first: 25, orderBy: {field: CREATED_AT, direction: DESC}) {
+        discussions(first: $maxDiscussions, orderBy: {field: CREATED_AT, direction: DESC}) {
           nodes {
             title
             author {
@@ -53,6 +54,7 @@ async function fetchDiscussions(): Promise<Discussion[]> {
       variables: {
         owner: REPO_OWNER,
         name: REPO_NAME,
+        maxDiscussions: MAX_DISCUSSIONS,
       },
     }),
   });

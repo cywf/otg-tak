@@ -28,14 +28,21 @@ if (!filename) {
   return Astro.redirect(`${base}/404`);
 }
 
-const filePath = join(process.cwd(), '..', filename);
+// Resolve and validate file path to prevent traversal attacks
+const repoRoot = join(process.cwd(), '..');
+const filePath = join(repoRoot, filename);
+const resolvedPath = filePath.startsWith(repoRoot) ? filePath : null;
+
+if (!resolvedPath) {
+  return Astro.redirect(`${base}/404`);
+}
 
 let content = '';
 let title = slug as string;
 
 try {
-  if (existsSync(filePath)) {
-    const rawContent = readFileSync(filePath, 'utf-8');
+  if (resolvedPath && existsSync(resolvedPath)) {
+    const rawContent = readFileSync(resolvedPath, 'utf-8');
     content = marked(rawContent);
     
     // Extract title from first heading
