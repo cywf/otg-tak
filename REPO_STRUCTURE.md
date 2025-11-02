@@ -28,18 +28,35 @@ This file is auto-generated and shows the structure of the OTG-TAK repository.
 │   ├── index.html
 │   ├── src
 │   └── vite.config.js
+├── mermaid
+│   ├── architecture.mmd
+│   ├── bpmnish.mmd
+│   ├── ci-sequence.mmd
+│   ├── er.mmd
+│   └── flowchart.mmd
 ├── package.json
 ├── quick-start.sh
 ├── requirements.txt
 ├── scripts
 │   ├── generate-markmap.mjs
+│   ├── generate-mermaid.mjs
 │   └── health-check.sh
+├── site
+│   ├── README.md
+│   ├── astro.config.mjs
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   ├── scripts
+│   ├── src
+│   ├── tailwind.config.mjs
+│   └── tsconfig.json
 └── terraform
     ├── main.tf
     ├── modules
     └── variables.tf
 
-10 directories, 23 files
+15 directories, 35 files
 ```
 
 ## Mermaid Diagram
