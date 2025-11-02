@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DiscussionsList from '../components/DiscussionsList';
+---
+
+<BaseLayout title="Discussions" description="Browse and search GitHub Discussions for the OTG-TAK project">
+  <div class="container mx-auto px-4 py-12 max-w-7xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">Discussions</h1>
+      <p class="text-lg opacity-80 mb-6">
+        Browse the latest discussions from the OTG-TAK community
+      </p>
+      <a 
+        href="https://github.com/cywf/otg-tak/discussions/new" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+      >
+        Start New Discussion
+      </a>
+    </div>
+    
+    <DiscussionsList client:load />
+  </div>
+</BaseLayout>

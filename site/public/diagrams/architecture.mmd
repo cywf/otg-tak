@@ -1,0 +1,21 @@
+architecture-beta
+group compose(cloud)[Docker Compose]
+group tf(cloud)[Terraform]
+service svc_backend(server)[backend] in compose
+service svc_build(server)[build] in compose
+service svc_ports(server)[ports] in compose
+service svc_volumes(server)[volumes] in compose
+service svc_environment(server)[environment] in compose
+service svc_networks(server)[networks] in compose
+service svc_frontend(server)[frontend] in compose
+service svc_depends_on(server)[depends_on] in compose
+service aws_vpc_main(database)[aws_vpc.main] in tf
+service aws_internet_gateway_main(database)[aws_internet_gateway.main] in tf
+service aws_subnet_public(database)[aws_subnet.public] in tf
+service aws_subnet_private(database)[aws_subnet.private] in tf
+service aws_route_table_public(database)[aws_route_table.public] in tf
+service aws_route_table_association_public(database)[aws_route_table_association.public] in tf
+service aws_wafv2_web_acl_tak(database)[aws_wafv2_web_acl.tak] in tf
+service aws_cloudwatch_log_group_security(database)[aws_cloudwatch_log_group.security] in tf
+service aws_security_group_tak_server(database)[aws_security_group.tak_server] in tf
+service aws_instance_tak_server(database)[aws_instance.tak_server] in tf

@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Home" description="OTG-TAK: On-The-Go TAK Deployment Platform - Automated TAK Server provisioning with security hardening and tactical tools">
+  <div class="hero min-h-[40vh] bg-gradient-to-br from-primary/20 to-secondary/20">
+    <div class="hero-content text-center">
+      <div class="max-w-4xl">
+        <h1 class="text-5xl font-bold mb-4">
+          <span class="text-primary">OTG-TAK</span>
+        </h1>
+        <h2 class="text-3xl font-semibold mb-6">On-The-Go TAK Deployment</h2>
+        <p class="text-xl mb-8">
+          A comprehensive mobile solution for automating the deployment and setup of TAK (Team Awareness Kit) Servers with security hardening, networking integration, and tactical operational tools.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="https://github.com/cywf/otg-tak" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="mr-2">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            View on GitHub
+          </a>
+          <a href={`${base}/docs`} class="btn btn-secondary">
+            Read Documentation
+          </a>
+          <a href={`${base}/create-issue`} class="btn btn-accent">
+            Report Issue
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-12 max-w-7xl">
+    <!-- Workflow Status Badges -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-center">Repository Status</h2>
+      <div class="flex flex-wrap gap-4 justify-center items-center">
+        <img src="https://github.com/cywf/otg-tak/actions/workflows/build.yml/badge.svg" alt="Build Status" class="badge-lg" />
+        <img src="https://github.com/cywf/otg-tak/actions/workflows/test.yml/badge.svg" alt="Test Status" class="badge-lg" />
+        <img src="https://github.com/cywf/otg-tak/actions/workflows/issue-watcher.yml/badge.svg" alt="Issue Watcher Status" class="badge-lg" />
+        <img src="https://github.com/cywf/otg-tak/actions/workflows/docs.yml/badge.svg" alt="Docs Status" class="badge-lg" />
+      </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Key Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Automated Deployment -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+              </svg>
+              Automated Deployment
+            </h3>
+            <p>TAK Server provisioning with dual deployment options: local bare metal and cloud infrastructure using Terraform + Docker.</p>
+          </div>
+        </div>
+
+        <!-- Security & Monitoring -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title text-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+              </svg>
+              Security Hardening
+            </h3>
+            <p>Automated security scanning with Lynis, firewall configuration (UFW), intrusion prevention (fail2ban), and real-time alerting.</p>
+          </div>
+        </div>
+
+        <!-- Networking -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+              Networking
+            </h3>
+            <p>Tailscale and Zerotier integration for secure mesh networking, with Traefik reverse proxy for automated SSL/TLS management.</p>
+          </div>
+        </div>
+
+        <!-- ISR Capabilities -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title text-info">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+              </svg>
+              ISR Capabilities
+            </h3>
+            <p>MediaMTX server for real-time ISR feed streaming with RTSP/HLS/WebRTC support and feed management.</p>
+          </div>
+        </div>
+
+        <!-- Client Onboarding -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title text-success">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" />
+              </svg>
+              QR Code Onboarding
+            </h3>
+            <p>Quick ATAK/iTAK client onboarding with QR code generation, batch configuration, and embedded certificates.</p>
+          </div>
+        </div>
+
+        <!-- Tactical Tools -->
+        <div class="card bg-base-200 shadow-xl">
+          <div class="card-body">
+            <h3 class="card-title text-warning">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+              </svg>
+              Tactical Tools
+            </h3>
+            <p>Data package builder, route planning, SDR builder, file converter (KML/KMZ), POI tracker, and collaborative notepad.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Quick Links</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="https://github.com/cywf/otg-tak/issues" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-primary btn-lg">
+          Issues
+        </a>
+        <a href="https://github.com/cywf/otg-tak/discussions" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-secondary btn-lg">
+          Discussions
+        </a>
+        <a href="https://github.com/cywf/otg-tak/projects" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-accent btn-lg">
+          Projects
+        </a>
+        <a href="https://github.com/cywf/otg-tak/releases" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-info btn-lg">
+          Releases
+        </a>
+      </div>
+    </section>
+
+    <!-- Documentation Links -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Documentation</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href={`${base}/docs/INSTALL`} class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
+          <div class="card-body">
+            <h3 class="card-title">Installation Guide</h3>
+            <p>Step-by-step installation instructions for Docker Compose, manual setup, and cloud deployment.</p>
+          </div>
+        </a>
+        <a href={`${base}/docs/PROJECT_SUMMARY`} class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
+          <div class="card-body">
+            <h3 class="card-title">Project Summary</h3>
+            <p>Overview of features, statistics, and architecture details.</p>
+          </div>
+        </a>
+        <a href={`${base}/docs/REPO_STRUCTURE`} class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow">
+          <div class="card-body">
+            <h3 class="card-title">Repository Structure</h3>
+            <p>Visual representation of the project's directory structure and organization.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">Project Architecture</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="stats shadow bg-base-200">
+          <div class="stat">
+            <div class="stat-figure text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z" />
+              </svg>
+            </div>
+            <div class="stat-title">Backend</div>
+            <div class="stat-value text-primary">FastAPI</div>
+            <div class="stat-desc">Python REST API</div>
+          </div>
+        </div>
+
+        <div class="stats shadow bg-base-200">
+          <div class="stat">
+            <div class="stat-figure text-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+              </svg>
+            </div>
+            <div class="stat-title">Frontend</div>
+            <div class="stat-value text-secondary">React</div>
+            <div class="stat-desc">Interactive Dashboard</div>
+          </div>
+        </div>
+
+        <div class="stats shadow bg-base-200">
+          <div class="stat">
+            <div class="stat-figure text-accent">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" />
+              </svg>
+            </div>
+            <div class="stat-title">Automation</div>
+            <div class="stat-value text-accent">Ansible</div>
+            <div class="stat-desc">IaC Playbooks</div>
+          </div>
+        </div>
+
+        <div class="stats shadow bg-base-200">
+          <div class="stat">
+            <div class="stat-figure text-info">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15a4.5 4.5 0 004.5 4.5H18a3.75 3.75 0 001.332-7.257 3 3 0 00-3.758-3.848 5.25 5.25 0 00-10.233 2.33A4.502 4.502 0 002.25 15z" />
+              </svg>
+            </div>
+            <div class="stat-title">Cloud</div>
+            <div class="stat-value text-info">Terraform</div>
+            <div class="stat-desc">Infrastructure</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
